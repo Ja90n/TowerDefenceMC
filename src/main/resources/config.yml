@@ -1,0 +1,36 @@
+locations:
+  0:
+    world: 'towerdefence'
+    x: 0.5
+    y: 1.0
+    z: 16.5
+  1:
+    world: 'towerdefence'
+    x: 0.5
+    y: 1.0
+    z: 0.5
+  2:
+    world: 'towerdefence'
+    x: 16.5
+    y: 1.0
+    z: 0.5
+  3:
+    world: 'towerdefence'
+    x: 16.5
+    y: 1.0
+    z: 17.5
+  4:
+    world: 'towerdefence'
+    x: 8.5
+    y: 1.0
+    z: 17.5
+  5:
+    world: 'towerdefence'
+    x: 8.5
+    y: 1.0
+    z: 12.5
+  6:
+    world: 'towerdefence'
+    x: 21.5
+    y: 1.0
+    z: 12.5

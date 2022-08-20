@@ -1,0 +1,4 @@
+name: TowerDefenceMC
+version: '${project.version}'
+main: com.ja90n.towerdefencemc.TowerDefenceMC
+api-version: 1.19
