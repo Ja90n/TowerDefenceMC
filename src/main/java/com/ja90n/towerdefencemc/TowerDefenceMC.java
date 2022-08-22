@@ -1,7 +1,10 @@
 package com.ja90n.towerdefencemc;
 
 import com.ja90n.towerdefencemc.events.DropEvent;
+import com.ja90n.towerdefencemc.events.PlayerInteract;
+import com.ja90n.towerdefencemc.events.PlayerJoin;
 import com.ja90n.towerdefencemc.instances.Arena;
+import com.ja90n.towerdefencemc.instances.Tower;
 import com.ja90n.towerdefencemc.manager.ConfigManager;
 import com.ja90n.towerdefencemc.manager.EnemyManager;
 import com.ja90n.towerdefencemc.manager.TowerManager;
@@ -29,7 +32,9 @@ public final class TowerDefenceMC extends JavaPlugin {
         // arena = new Arena(this);
 
         // Registers events
+        getServer().getPluginManager().registerEvents(new PlayerInteract(this),this);
         getServer().getPluginManager().registerEvents(new DropEvent(this),this);
+        //getServer().getPluginManager().registerEvents(new PlayerJoin(),this);
 
         // Registers commands
     }
@@ -37,6 +42,8 @@ public final class TowerDefenceMC extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        towerManager.clearTowers();
+        enemyManager.clear();
     }
 
     public ConfigManager getConfigManager() {return configManager;}

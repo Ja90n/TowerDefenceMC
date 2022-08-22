@@ -4,9 +4,9 @@ import org.bukkit.Material;
 
 public enum TowerType {
 
-    ARCHER(2.0,0.5,10.0,Material.GOLDEN_HOE,1),
-    WIZARD(4.0,1.0,6.0,Material.GOLDEN_HOE,2),
-    CANON(8.0,2.0,5.0,Material.GOLDEN_HOE,3);
+    ARCHER(2.0,0.5,10.0,Material.WOODEN_HOE,1),
+    MAGE(4.0,1.0,6.0,Material.WOODEN_HOE,2),
+    CANON(8.0,2.0,5.0,Material.WOODEN_HOE,3);
     private double damage,fireRate,range;
     private Material material;
     private int id;

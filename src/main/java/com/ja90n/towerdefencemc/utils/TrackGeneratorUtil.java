@@ -12,13 +12,14 @@ public class TrackGeneratorUtil {
 
     private TowerDefenceMC towerDefenceMC;
 
+    private ArrayList<Location> fullTrack;
+
     public TrackGeneratorUtil(TowerDefenceMC towerDefenceMC) {
         this.towerDefenceMC = towerDefenceMC;
+        fullTrack = new ArrayList<>();
     }
 
     public ArrayList<Location> getTrack(double movementSpeed){
-        int realSpeed = (int) (movementSpeed * 20);
-
         ArrayList<Location> track = new ArrayList<>();
         ArrayList<Location> locations = new ArrayList<>();
 
@@ -66,33 +67,29 @@ public class TrackGeneratorUtil {
                 }
                 break;
         }
-
         return track;
     }
 
     public ArrayList<Location> getFullTrack() {
-        ArrayList<Location> track = new ArrayList<>();
-        ArrayList<Location> locations = new ArrayList<>();
-
-        FileConfiguration config = towerDefenceMC.getConfig();
-
-        for (String str : config.getConfigurationSection("locations.").getKeys(false)){
-            locations.add(towerDefenceMC.getConfigManager().getTrackLocation(str));
-        }
-
-        int size = locations.size()-1;
-        int i = 0;
-
-        while (size != i){
-            if (locations.get(i) != null){
-                int pointsInLine = (int) (locations.get(i).distance(locations.get(i+1)) * 200);
-                for (Location location1 : createLine(locations.get(i),locations.get(i+1),pointsInLine)){
-                    track.add(location1);
-                }
+        if (fullTrack.isEmpty()){
+            ArrayList<Location> locations = new ArrayList<>();
+            FileConfiguration config = towerDefenceMC.getConfig();
+            for (String str : config.getConfigurationSection("locations.").getKeys(false)){
+                locations.add(towerDefenceMC.getConfigManager().getTrackLocation(str));
             }
-            i++;
+            int size = locations.size()-1;
+            int i = 0;
+            while (size != i){
+                if (locations.get(i) != null){
+                    int pointsInLine = (int) (locations.get(i).distance(locations.get(i+1)) * 80);
+                    fullTrack.addAll(createLine(locations.get(i), locations.get(i + 1), pointsInLine));
+                }
+                i++;
+            }
+            return fullTrack;
+        } else {
+            return fullTrack;
         }
-        return track;
     }
 
     public ArrayList<Location> createLine(org.bukkit.Location point1, org.bukkit.Location point2, int pointsInLine) {

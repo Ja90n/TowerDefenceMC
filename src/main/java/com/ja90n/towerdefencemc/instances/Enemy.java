@@ -4,8 +4,11 @@ import com.ja90n.towerdefencemc.TowerDefenceMC;
 import com.ja90n.towerdefencemc.enums.EnemyType;
 import com.ja90n.towerdefencemc.manager.EnemyManager;
 import com.ja90n.towerdefencemc.runnables.MoveEnemyRunnable;
+import com.ja90n.towerdefencemc.utils.ModelItemStackUtil;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +37,7 @@ public class Enemy {
         armorStand.setBasePlate(false);
         armorStand.setInvisible(true);
 
-        armorStand.getEquipment().setHelmet(new ItemStack(Material.STICK));
+        armorStand.getEquipment().setHelmet(new ModelItemStackUtil().getItemstack(type.getMaterial(),type.getId()));
 
         // Putting the correct value for the correct enemy
         movementSpeed = type.getMovementSpeed();

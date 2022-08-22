@@ -5,6 +5,7 @@ import com.ja90n.towerdefencemc.enums.TowerType;
 import com.ja90n.towerdefencemc.instances.Tower;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,27 @@ public class TowerManager {
 
     public void newTower(TowerType type, Location location){
         towers.add(new Tower(type,location,towerDefenceMC));
+    }
+
+    public Tower getTower(Location location){
+        for (Tower tower1 : towers){
+            Location location1 = tower1.getArmorStand().getLocation();
+            location1.setPitch(0);
+            location1.setYaw(0);
+            if (location1.equals(location)){
+                return tower1;
+            }
+        }
+        return null;
+    }
+
+    public Tower getTower(Entity entity){
+        for (Tower tower1 : towers){
+            if (tower1.getArmorStand().equals(entity)){
+                return tower1;
+            }
+        }
+        return null;
     }
 
     public void removeTower(ArmorStand armorStand){

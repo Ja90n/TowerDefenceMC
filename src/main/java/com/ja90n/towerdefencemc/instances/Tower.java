@@ -2,8 +2,11 @@ package com.ja90n.towerdefencemc.instances;
 
 import com.ja90n.towerdefencemc.TowerDefenceMC;
 import com.ja90n.towerdefencemc.enums.TowerType;
-import com.ja90n.towerdefencemc.runnables.TowerFireRunnable;
+import com.ja90n.towerdefencemc.runnables.towerfire.ArcherFireRunnable;
+import com.ja90n.towerdefencemc.runnables.towerfire.CannonFireRunnable;
+import com.ja90n.towerdefencemc.runnables.towerfire.MageFireRunnable;
 import com.ja90n.towerdefencemc.utils.ModelItemStackUtil;
+import com.ja90n.towerdefencemc.utils.TowerFireRunnableInitiator;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -13,10 +16,9 @@ public class Tower {
     private TowerType type;
     private Location location;
 
-    private double damage,fireRate,range;
-    private ArmorStand armorStand;
+    private TowerFireRunnableInitiator towerFireRunnableInitiator;
 
-    private TowerFireRunnable towerFireRunnable;
+    private ArmorStand armorStand;
 
     public Tower(TowerType type, Location location, TowerDefenceMC towerDefenceMC) {
 
@@ -32,13 +34,24 @@ public class Tower {
         armorStand.setInvulnerable(true);
         armorStand.setGravity(false);
 
-        // Initiating the tower fire runnable
-        towerFireRunnable = new TowerFireRunnable(type,this,towerDefenceMC);
+        // Start the fire runnable
+        towerFireRunnableInitiator = new TowerFireRunnableInitiator(type,this,towerDefenceMC);
+
     }
 
     public void remove(){
-        towerFireRunnable.cancel();
         armorStand.remove();
+
+        if (towerFireRunnableInitiator.getRunnable() instanceof CannonFireRunnable){
+            CannonFireRunnable cannonFireRunnable = (CannonFireRunnable) towerFireRunnableInitiator.getRunnable();
+            cannonFireRunnable.cancel();
+        } else if (towerFireRunnableInitiator.getRunnable() instanceof MageFireRunnable){
+            MageFireRunnable mageFireRunnable = (MageFireRunnable) towerFireRunnableInitiator.getRunnable();
+            mageFireRunnable.cancel();
+        } else if (towerFireRunnableInitiator.getRunnable() instanceof ArcherFireRunnable){
+            ArcherFireRunnable archerFireRunnable = (ArcherFireRunnable) towerFireRunnableInitiator.getRunnable();
+            archerFireRunnable.cancel();
+        }
     }
 
     public ArmorStand getArmorStand() {
