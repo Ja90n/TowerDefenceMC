@@ -5,6 +5,7 @@ import com.ja90n.towerdefencemc.enums.TowerType;
 import com.ja90n.towerdefencemc.instances.Enemy;
 import com.ja90n.towerdefencemc.instances.Tower;
 import com.ja90n.towerdefencemc.manager.EnemyManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
@@ -40,8 +41,6 @@ public class MageFireRunnable extends BukkitRunnable {
                 enemy.damage(damage); // Damages the first enemy on the track
                 Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(186, 9, 9), 1.0F);
                 enemy.getArmorStand().getWorld().spawnParticle(Particle.REDSTONE, enemy.getArmorStand().getLocation().add(0,0.5,0), 10, dustOptions);
-                armorStand.teleport(armorStand.getLocation().setDirection(enemy.getArmorStand().getLocation().toVector()
-                        .subtract(armorStand.getLocation().toVector())));
                 enemyManager.burnEnemy(enemy);
             }
         }

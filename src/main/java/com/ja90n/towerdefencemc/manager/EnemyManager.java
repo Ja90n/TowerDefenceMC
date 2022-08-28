@@ -5,6 +5,7 @@ import com.ja90n.towerdefencemc.enums.EnemyType;
 import com.ja90n.towerdefencemc.instances.Enemy;
 import com.ja90n.towerdefencemc.runnables.BurningEnemyRunnable;
 import com.ja90n.towerdefencemc.utils.TrackGeneratorUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -44,9 +45,22 @@ public class EnemyManager {
     }
 
     public void burnEnemy(Enemy enemy){
-        if (!burning.contains(enemy)){
-            burning.add(enemy);
-            new BurningEnemyRunnable(enemy,towerDefenceMC,this);
+        if (enemy != null){
+            if (!burning.contains(enemy)){
+                burning.add(enemy);
+                new BurningEnemyRunnable(enemy,towerDefenceMC,this);
+            }
+        }
+        for (Entity target : enemy.getArmorStand().getNearbyEntities(1,1,1)){
+            if (target instanceof ArmorStand){
+                Enemy enemy1 = getEnemy((ArmorStand) target);
+                if (enemy1 != null){
+                    if (!burning.contains(enemy1)){
+                        burning.add(enemy1);
+                        new BurningEnemyRunnable(enemy1,towerDefenceMC,this);
+                    }
+                }
+            }
         }
     }
 

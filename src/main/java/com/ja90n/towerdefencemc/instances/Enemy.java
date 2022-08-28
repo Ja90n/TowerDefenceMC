@@ -65,6 +65,14 @@ public class Enemy {
         return movementSpeed;
     }
 
+    public EnemyType getType() {
+        return type;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
     public ArmorStand getArmorStand() {
         return armorStand;
     }

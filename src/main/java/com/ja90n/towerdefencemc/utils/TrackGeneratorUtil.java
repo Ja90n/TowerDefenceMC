@@ -33,6 +33,17 @@ public class TrackGeneratorUtil {
         int i = 0;
 
         switch (String.valueOf(movementSpeed)){
+            case "0.5":
+                while (size != i){
+                    if (locations.get(i) != null){
+                        int pointsInLine = (int) (locations.get(i).distance(locations.get(i+1)) * 40);
+                        for (Location location1 : createLine(locations.get(i),locations.get(i+1),pointsInLine)){
+                            track.add(location1);
+                        }
+                    }
+                    i++;
+                }
+                break;
             case "1.0":
                 while (size != i){
                     if (locations.get(i) != null){

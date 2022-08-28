@@ -3,6 +3,8 @@ package com.ja90n.towerdefencemc.runnables;
 import com.ja90n.towerdefencemc.TowerDefenceMC;
 import com.ja90n.towerdefencemc.instances.Enemy;
 import com.ja90n.towerdefencemc.utils.TrackGeneratorUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -53,6 +55,8 @@ public class MoveEnemyRunnable extends BukkitRunnable {
             track.remove(0);
         } else {
             // If the line is empty then it will cancel the movement of the settler
+            Bukkit.broadcastMessage(ChatColor.RED + "Enemy " + ChatColor.WHITE + enemy.getType() +
+                    ChatColor.RED + " made it with " + ChatColor.WHITE + enemy.getHealth() + ChatColor.RED + " remaining");
             enemy.remove();
         }
     }

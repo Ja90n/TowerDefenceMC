@@ -6,7 +6,9 @@ public enum EnemyType {
 
     ZOMBIE(10.0,1.0,Material.WOODEN_SWORD,1),
     IRONZOMBIE(20.0,1.5,Material.WOODEN_SWORD,2),
-    GOLDZOMBIE(30.0,2.0,Material.WOODEN_SWORD,3);
+    GOLDZOMBIE(30.0,2.0,Material.WOODEN_SWORD,3),
+
+    GHAST(100.0,0.5,Material.WOODEN_SWORD,4);
 
     private double health,movementSpeed;
     private Material material;
