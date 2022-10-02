@@ -14,8 +14,6 @@ import java.util.ArrayList;
 public class MoveEnemyRunnable extends BukkitRunnable {
 
     private Enemy enemy;
-    private Location destination;
-
     private ArmorStand armorStand;
 
     private ArrayList<Location> track;
@@ -26,7 +24,7 @@ public class MoveEnemyRunnable extends BukkitRunnable {
 
         // Save values
         this.enemy = enemy;
-        this.destination = destination;
+
         armorStand = enemy.getArmorStand();
 
         movementSpeed = enemy.getMovementSpeed();
@@ -54,7 +52,7 @@ public class MoveEnemyRunnable extends BukkitRunnable {
             // Remove the current destination from the line
             track.remove(0);
         } else {
-            // If the line is empty then it will cancel the movement of the settler
+            // If the line is empty then it will cancel the movement of the enemy
             Bukkit.broadcastMessage(ChatColor.RED + "Enemy " + ChatColor.WHITE + enemy.getType() +
                     ChatColor.RED + " made it with " + ChatColor.WHITE + enemy.getHealth() + ChatColor.RED + " remaining");
             enemy.remove();

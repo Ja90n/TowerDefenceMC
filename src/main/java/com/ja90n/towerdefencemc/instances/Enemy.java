@@ -19,7 +19,7 @@ public class Enemy {
     private EnemyType type;
     private double movementSpeed;
     private double health;
-
+    private int progressionOnTrack;
     private ArmorStand armorStand;
 
     private MoveEnemyRunnable moveEnemyRunnable;
@@ -42,6 +42,7 @@ public class Enemy {
         // Putting the correct value for the correct enemy
         movementSpeed = type.getMovementSpeed();
         health = type.getHealth();
+        progressionOnTrack = 0;
 
         // Creating and saving the move enemy runnable
         moveEnemyRunnable = new MoveEnemyRunnable(towerDefenceMC,this,spawnLocation);
@@ -71,6 +72,14 @@ public class Enemy {
 
     public double getHealth() {
         return health;
+    }
+
+    public int getProgressionOnTrack() {
+        return progressionOnTrack;
+    }
+
+    public void setProgressionOnTrack(int progression){
+        progressionOnTrack = progression;
     }
 
     public ArmorStand getArmorStand() {

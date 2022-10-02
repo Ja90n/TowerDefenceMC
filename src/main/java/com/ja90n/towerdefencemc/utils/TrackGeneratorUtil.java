@@ -20,18 +20,22 @@ public class TrackGeneratorUtil {
     }
 
     public ArrayList<Location> getTrack(double movementSpeed){
+
         ArrayList<Location> track = new ArrayList<>();
-        ArrayList<Location> locations = new ArrayList<>();
-
-        FileConfiguration config = towerDefenceMC.getConfig();
-
-        for (String str : config.getConfigurationSection("locations.").getKeys(false)){
-            locations.add(towerDefenceMC.getConfigManager().getTrackLocation(str));
-        }
-
+        ArrayList<Location> locations = getConfigLocations();
         int size = locations.size()-1;
         int i = 0;
 
+        double neededPointsInLine = 20.529*Math.pow(movementSpeed,0.967);
+        while (size != i){
+            if (locations.get(i) != null){
+                int pointsInLine = (int) (locations.get(i).distance(locations.get(i+1)) * (int) Math.round(neededPointsInLine));
+                track.addAll(createLine(locations.get(i), locations.get(i + 1), pointsInLine));
+            }
+            i++;
+        }
+
+        /*
         switch (String.valueOf(movementSpeed)){
             case "0.5":
                 while (size != i){
@@ -56,6 +60,7 @@ public class TrackGeneratorUtil {
                 }
                 break;
             case "1.5":
+                int neededPointsInLine =
                 while (size != i){
                     if (locations.get(i) != null){
                         int pointsInLine = (int) (locations.get(i).distance(locations.get(i+1)) * 15);
@@ -78,16 +83,15 @@ public class TrackGeneratorUtil {
                 }
                 break;
         }
+
+         */
         return track;
     }
 
+
     public ArrayList<Location> getFullTrack() {
         if (fullTrack.isEmpty()){
-            ArrayList<Location> locations = new ArrayList<>();
-            FileConfiguration config = towerDefenceMC.getConfig();
-            for (String str : config.getConfigurationSection("locations.").getKeys(false)){
-                locations.add(towerDefenceMC.getConfigManager().getTrackLocation(str));
-            }
+            ArrayList<Location> locations = getConfigLocations();
             int size = locations.size()-1;
             int i = 0;
             while (size != i){
@@ -97,13 +101,22 @@ public class TrackGeneratorUtil {
                 }
                 i++;
             }
-            return fullTrack;
-        } else {
-            return fullTrack;
         }
+        return fullTrack;
     }
 
-    public ArrayList<Location> createLine(org.bukkit.Location point1, org.bukkit.Location point2, int pointsInLine) {
+    // Returns an Arraylist of all the locations listed in the config files
+    public ArrayList<Location> getConfigLocations(){
+        ArrayList<Location> locations = new ArrayList<>();
+        FileConfiguration config = towerDefenceMC.getConfig();
+        for (String str : config.getConfigurationSection("locations.").getKeys(false)){
+            locations.add(towerDefenceMC.getConfigManager().getTrackLocation(str));
+        }
+        return locations;
+    }
+
+    // Black magic
+    public ArrayList<Location> createLine(Location point1, Location point2, int pointsInLine) {
         double p1X = point1.getX();
         double p1Y = point1.getY();
         double p1Z = point1.getZ();
